@@ -2,6 +2,7 @@ package ca.keyin.flight_api.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,11 @@ public class Airport {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id", nullable = false)
+    @JsonIgnore
     private City city;
 
     @ManyToMany(mappedBy = "airports")
+    @JsonIgnore
     @Builder.Default
     private List<Aircraft> aircraft = new ArrayList<>();
 }

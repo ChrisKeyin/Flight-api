@@ -2,6 +2,9 @@ package ca.keyin.flight_api.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
 
 @Entity
 @Table(name = "cities")
@@ -25,9 +28,10 @@ public class City {
     private int population;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    private java.util.List<Airport> airports;
+    @JsonIgnore
+    private List<Airport> airports;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    private java.util.List<Passenger> passengers;
-
+    @JsonIgnore
+    private List<Passenger> passengers;
 }
