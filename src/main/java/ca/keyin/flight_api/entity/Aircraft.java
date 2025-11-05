@@ -2,6 +2,8 @@ package ca.keyin.flight_api.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,5 +28,15 @@ public class Aircraft {
     private int numberOfPassengers;
 
     @ManyToMany(mappedBy = "aircraftList")
-    private List<Passenger> passengers;
+    @Builder.Default
+    private List<Passenger> passengers = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "aircraft_airports",
+            joinColumns = @JoinColumn(name = "aircraft_id"),
+            inverseJoinColumns = @JoinColumn(name = "airport_id")
+    )
+    @Builder.Default
+    private List<Airport> airports = new ArrayList<>();
 }
