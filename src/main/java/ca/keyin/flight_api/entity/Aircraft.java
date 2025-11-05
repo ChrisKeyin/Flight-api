@@ -1,8 +1,8 @@
 package ca.keyin.flight_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "passengers"})
 public class Aircraft {
 
     @Id
@@ -27,11 +28,11 @@ public class Aircraft {
     @Column(nullable = false)
     private int numberOfPassengers;
 
-    @ManyToMany(mappedBy = "aircraftList")
+    @ManyToMany(mappedBy = "aircraftList", fetch = FetchType.LAZY)
     @Builder.Default
     private List<Passenger> passengers = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "aircraft_airports",
             joinColumns = @JoinColumn(name = "aircraft_id"),
