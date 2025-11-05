@@ -1,8 +1,11 @@
+
 package ca.keyin.flight_api.entity;
 
-import java.util.List;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "passengers")
@@ -35,7 +38,6 @@ public class Passenger {
             joinColumns = @JoinColumn(name = "passenger_id"),
             inverseJoinColumns = @JoinColumn(name = "aircraft_id")
     )
-    private List<Aircraft> aircraftList;
-
-
+    @Builder.Default
+    private List<Aircraft> aircraftList = new ArrayList<>();
 }
