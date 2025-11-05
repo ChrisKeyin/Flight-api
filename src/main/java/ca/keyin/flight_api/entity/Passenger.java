@@ -1,5 +1,6 @@
 package ca.keyin.flight_api.entity;
 
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,5 +28,14 @@ public class Passenger {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
+
+    @ManyToMany
+    @JoinTable(
+            name = "passenger_aircraft",
+            joinColumns = @JoinColumn(name = "passenger_id"),
+            inverseJoinColumns = @JoinColumn(name = "aircraft_id")
+    )
+    private List<Aircraft> aircraftList;
+
 
 }
